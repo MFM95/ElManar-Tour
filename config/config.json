@@ -1,0 +1,35 @@
+{
+  "site": {
+    "title": "El Manar Tours",
+    "base_url": "/",
+    "favicon": "/images/favicon.png",
+    "logo_width": "200",
+    "logo_height": "48",
+    "logo_text": "El Manar Tours"
+  },
+
+  "settings": {
+    "pagination": 1000,
+    "summary_length": 200,
+    "blog_folder": "blogs"
+  },
+
+  "nav_button": {
+    "enable": true,
+    "label": "Contact us",
+    "link": "/contact"
+  },
+
+  "params": {
+    "contact_form_action": "",
+    "tag_manager_id": "",
+    "footer_content": "Lorem ipsum dolor sit amet, consectetur elit. Consjat tristique eget amet, tempus eu at cttur.",
+    "copyright": "Designed and Developed By [Themefisher](https://themefisher.com/)"
+  },
+
+  "metadata": {
+    "meta_author": "Themefisher",
+    "meta_image": "",
+    "meta_description": "A SAAS template for nextjs"
+  }
+}
