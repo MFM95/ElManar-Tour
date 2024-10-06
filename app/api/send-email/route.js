@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import {EMAIL_PASS, EMAIL_TO, EMAIL_USER} from "@lib/utils/Constants";
 
 export async function POST(req) {
-  const { name, email, message } = await req.json();
+  const { tourTitle, name, contactNumber, numberOfGuests, date } = await req.json();
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -15,11 +15,11 @@ export async function POST(req) {
 
   try {
     const mailOptions = {
-      from: email,
+      from: EMAIL_USER,
       to: EMAIL_TO, // Your email address where you'll receive the messages
-      subject: `New Booking Request from ${name}`,
-      text: message,
-      html: `<p><strong>From:</strong> ${name} (${email})</p><p><strong>Message:</strong><br/>${message}</p>`,
+      subject: `New Booking Request for ${tourTitle}`,
+      // text: message,
+      html: `<p><strong>Name:</strong> ${name}</p><p><strong>Contact Number:</strong> ${contactNumber}</p> <p><strong>Number of Guests:</strong><br/>${numberOfGuests}</p><p><strong>Preferred Date:</strong><br/>${date}</p>`,
     };
 
     await transporter.sendMail(mailOptions);

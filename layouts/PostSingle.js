@@ -5,7 +5,7 @@
 // import Image from "next/image";
 // import SeoMeta from "./SeoMeta";
 // import Link from "next/link";
-// import EmailFormModal from "@components/EmailFormModal";
+// import FormModal from "@components/FormModal";
 // import {useState} from "react";
 // import SubmitForm from "@components/SubmitForm";
 // import Modal from "@components/Modal";
@@ -72,17 +72,11 @@ import {useState} from 'react';
 import SeoMeta from "@layouts/SeoMeta";
 import Image from "next/image";
 import {markdownify} from "@lib/utils/textConverter";
-import EmailFormModal from "@components/EmailFormModal";
+import FormModal from "@components/FormModal";
 
-// export default function PostSingle() {
 const PostSingle = ({frontmatter, content}) => {
   let {description, title, image} = frontmatter;
   description = description ? description : content.slice(0, 120);
-
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const openModal = () => setIsModalOpen(true);
-  // const closeModal = () => setIsModalOpen(false);
-
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
@@ -116,7 +110,7 @@ const PostSingle = ({frontmatter, content}) => {
                   Book Now
                 </button>
 
-                <EmailFormModal open={isModalOpen} onClose={handleCloseModal} />
+                <FormModal tourTitle={title} open={isModalOpen} onClose={handleCloseModal}/>
               </div>
             </article>
 
