@@ -5,17 +5,25 @@ import Link from "next/link";
 
 const Posts = ({ posts }) => {
   const { blog_folder, summary_length } = config.settings;
+  for (let p in posts) {
+    console.log(`${p.id}`);
+    console.log(`${p.programType}`);
+    console.log(`${p.programTitle}`);
+    console.log(`${p.programDescription}`);
+    console.log(`${p.programPrice}`);
+    console.log(`${p.programTime}`);
+  }
   return (
     <div className="section row pb-0">
-      {posts.slice(0).map((post, i) => (
+      {posts.map((post, i) => (
         <div key={`key-${i}`} className="col-12 pb-12 lg:pb-24">
           <div className="row items-center">
             <div className="col-12 md:col-6">
-              {posts[i].frontmatter.image && (
+              {posts[i].programType && (
                 <Image
                   className="h-auto w-full rounded-lg"
-                  src={posts[i].frontmatter.image}
-                  alt={posts[i].frontmatter.title}
+                  src='/images/arrow-right.svg'
+                  alt={posts[i].programTitle}
                   width={540}
                   height={227}
                   priority={true}
@@ -28,12 +36,12 @@ const Posts = ({ posts }) => {
                   href={`/${blog_folder}/${posts[i].slug}`}
                   className="block hover:text-primary"
                 >
-                  {posts[i].frontmatter.title}
+                  {posts[i].programTitle}
                 </Link>
               </h2>
               <p className="text-text">
                 {plainify(
-                  posts[i].content?.slice(0, Number(summary_length)),
+                  posts[i].programDescription?.slice(0, Number(summary_length)),
                   "div"
                 )}
               </p>

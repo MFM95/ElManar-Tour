@@ -1,27 +1,58 @@
-import { markdownify } from "@lib/utils/textConverter";
+'use client';
 
-function Faq({ data }) {
-  const { frontmatter } = data;
-  const { title, faqs } = frontmatter;
+import {useEffect, useState} from "react";
+
+const Faq = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/sheets');
+        const result = await response.json();
+
+        if (response.ok) {
+          setData(result.data);
+        } else {
+          setError(result.error || 'An error occurred');
+        }
+      } catch (err) {
+        setError('Failed to fetch data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
   return (
-    <section className="section">
-      <div className="container">
-        {markdownify(title, "h1", "text-center font-normal")}
-        <div className="section row  -mt-6">
-          {faqs.map((faq, index) => (
-            <div key={index} className="col-12 mt-6 md:col-6">
-              <div className="p-12  shadow">
-                <div className="faq-head relative">
-                  {markdownify(faq.title, "h4")}
-                </div>
-                {markdownify(faq.answer, "p", "faq-body mt-4")}
-              </div>
-            </div>
+    <div>
+      <h2>Google Sheets Data</h2>
+      <table>
+        <thead>
+        <tr>
+          {data[0]?.map((header, index) => (
+            <th key={index}>{header}</th>
           ))}
-        </div>
-      </div>
-    </section>
+        </tr>
+        </thead>
+        <tbody>
+        {data.slice(1).map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {row.map((cell, cellIndex) => (
+              <td key={cellIndex}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+        </tbody>
+      </table>
+    </div>
   );
-}
+};
 
 export default Faq;
